@@ -1,5 +1,5 @@
-from fastapi import FastAPI
-
+from fastapi import FastAPI, Body
+from Models.Person import Person
 app = FastAPI()
 
 
@@ -9,3 +9,7 @@ def home():
     api home page
     '''
     return {'hello': 'world'}
+
+@app.post("/person")
+def create_person(person: Person = Body(...)):
+    return person
