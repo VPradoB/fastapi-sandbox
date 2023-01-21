@@ -1,5 +1,5 @@
 from typing import Optional
-from fastapi import FastAPI, Body, Query
+from fastapi import FastAPI, Body, Query, Path
 from Models.Person import Person
 app = FastAPI()
 
@@ -21,3 +21,14 @@ def show_person(
     age: Optional[int] = Query(None, le=100, ge=1)
 ):
     return {name: age}
+
+@app.get("/person/{person_id}/details")
+def show_person(
+    person_id: int = Path(
+        ...,
+        gt=0,
+        title="Person id",
+        description="The person id. Is required and must be greater than 0"
+        )
+):
+    return{person_id: "It exists!"}
