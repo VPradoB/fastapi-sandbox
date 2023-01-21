@@ -17,8 +17,19 @@ def create_person(person: Person = Body(...)):
 
 @app.get("/person/details")
 def show_person(
-    name: Optional[str] = Query(None, min_length=1, max_length=50),
-    age: Optional[int] = Query(None, le=100, ge=1)
+    name: Optional[str] = Query(
+        None,
+        min_length=1,
+        max_length=50,
+        title="Person name",
+        description="Person name. Must have a length between 1 and 50 characters."
+        ),
+    age: Optional[int] = Query(
+        None,
+        lt=140,
+        gt=0,
+        title="Person age",
+        description="Person age. Must be greather than 0 and less than 140")
 ):
     return {name: age}
 
